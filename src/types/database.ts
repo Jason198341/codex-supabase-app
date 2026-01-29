@@ -1,23 +1,13 @@
-/**
- * Supabase 데이터베이스 타입 정의
- *
- * Supabase 대시보드에서 테이블을 생성한 후,
- * 아래 명령으로 자동 생성할 수 있습니다:
- *
- * npx supabase gen types typescript --project-id zkxiafonajwibnffbqmb > src/types/database.ts
- *
- * 현재는 예시 타입만 정의되어 있습니다.
- */
-
 export interface Database {
   public: {
     Tables: {
-      // 예시: profiles 테이블
       profiles: {
         Row: {
           id: string;
           username: string | null;
           avatar_url: string | null;
+          nickname: string | null;
+          points: number;
           created_at: string;
           updated_at: string;
         };
@@ -25,37 +15,122 @@ export interface Database {
           id: string;
           username?: string | null;
           avatar_url?: string | null;
-          created_at?: string;
-          updated_at?: string;
+          nickname?: string | null;
+          points?: number;
         };
         Update: {
-          id?: string;
           username?: string | null;
           avatar_url?: string | null;
-          created_at?: string;
-          updated_at?: string;
+          nickname?: string | null;
+          points?: number;
         };
       };
-      // TODO: 여기에 추가 테이블 타입 정의
+      cases: {
+        Row: {
+          id: string;
+          user_id: string;
+          title: string;
+          content: string;
+          category: string;
+          ai_verdict: string | null;
+          ai_analysis: string | null;
+          ai_ratio: string | null;
+          guilty_count: number;
+          not_guilty_count: number;
+          status: string;
+          is_hot: boolean;
+          view_count: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          title: string;
+          content: string;
+          category: string;
+          ai_verdict?: string | null;
+          ai_analysis?: string | null;
+          ai_ratio?: string | null;
+        };
+        Update: {
+          title?: string;
+          content?: string;
+          category?: string;
+          ai_verdict?: string | null;
+          ai_analysis?: string | null;
+          ai_ratio?: string | null;
+          status?: string;
+          is_hot?: boolean;
+          view_count?: number;
+        };
+      };
+      votes: {
+        Row: {
+          id: string;
+          case_id: string;
+          user_id: string;
+          vote: 'guilty' | 'not_guilty';
+          created_at: string;
+        };
+        Insert: {
+          case_id: string;
+          user_id: string;
+          vote: 'guilty' | 'not_guilty';
+        };
+        Update: {
+          vote?: 'guilty' | 'not_guilty';
+        };
+      };
+      comments: {
+        Row: {
+          id: string;
+          case_id: string;
+          user_id: string;
+          content: string;
+          side: string | null;
+          likes: number;
+          created_at: string;
+        };
+        Insert: {
+          case_id: string;
+          user_id: string;
+          content: string;
+          side?: string | null;
+        };
+        Update: {
+          content?: string;
+          side?: string | null;
+          likes?: number;
+        };
+      };
+      comment_likes: {
+        Row: {
+          id: string;
+          comment_id: string;
+          user_id: string;
+          created_at: string;
+        };
+        Insert: {
+          comment_id: string;
+          user_id: string;
+        };
+        Update: never;
+      };
     };
-    Views: {
-      [_ in never]: never;
-    };
-    Functions: {
-      [_ in never]: never;
-    };
-    Enums: {
-      [_ in never]: never;
-    };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+    Enums: Record<string, never>;
   };
 }
 
-// 타입 헬퍼
 export type Tables<T extends keyof Database['public']['Tables']> =
   Database['public']['Tables'][T]['Row'];
 
 export type InsertTables<T extends keyof Database['public']['Tables']> =
   Database['public']['Tables'][T]['Insert'];
 
-export type UpdateTables<T extends keyof Database['public']['Tables']> =
-  Database['public']['Tables'][T]['Update'];
+export type Case = Tables<'cases'>;
+export type Vote = Tables<'votes'>;
+export type Comment = Tables<'comments'>;
+export type Profile = Tables<'profiles'>;

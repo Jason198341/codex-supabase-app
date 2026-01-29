@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "codex",
-    "slug": "codex",
+    "name": "판사님",
+    "slug": "pansa",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,21 +10,28 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#1a1a2e"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.pansa.judge"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#1a1a2e"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "package": "com.pansa.judge"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ce16b49d-c8c4-4fe0-9360-0f5d28dda050"
+      }
+    },
+    "owner": "hyunkyumoon"
   }
 }
