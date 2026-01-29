@@ -23,9 +23,9 @@ function HomeTabs() {
         tabBarStyle: {
           backgroundColor: '#1a1a2e',
           borderTopColor: '#262640',
-          height: 60,
-          paddingBottom: 8,
-          paddingTop: 8,
+          height: 80,
+          paddingBottom: 25,
+          paddingTop: 10,
         },
         tabBarActiveTintColor: '#6366f1',
         tabBarInactiveTintColor: '#6b7280',
